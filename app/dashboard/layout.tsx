@@ -30,6 +30,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
+import { useWallet } from '../../context/walletContext'
 
 interface DashboardLayoutProps {
   children: React.ReactNode
@@ -38,6 +39,8 @@ interface DashboardLayoutProps {
 export default function DashboardLayout({ children }: DashboardLayoutProps) {
   const [selectedNetwork, setSelectedNetwork] = useState("Ethereum")
   const [sidebarOpen, setSidebarOpen] = useState(false)
+
+  const { address, isConnected, chainId, userData } = useWallet();
 
   const navigationItems = [
     { icon: Home, label: "Dashboard", href: "/dashboard", active: false },
@@ -52,6 +55,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
     <div className="min-h-screen bg-background flex">
       {/* Sidebar */}
       <aside className={`fixed top-0 left-0 z-50 w-64 h-screen bg-card border-r border-border/40 transform transition-transform duration-200 ease-in-out lg:translate-x-0 lg:static lg:inset-0 ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}`}>
+      <a href="/">
         <div className="flex items-center justify-between p-4 border-b border-border/40">
           <div className="flex items-center gap-2">
             <Shield className="h-6 w-6 text-primary" />
@@ -61,6 +65,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
             <X className="h-4 w-4" />
           </Button>
         </div>
+        </a>
 
         <nav className="p-4 space-y-2">
           {navigationItems.map((item) => (
@@ -145,23 +150,25 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
               </DropdownMenu>
 
               {/* Notifications */}
-              <Button variant="outline" size="icon" className="relative bg-transparent">
+              {/* <Button variant="outline" size="icon" className="relative bg-transparent">
                 <Bell className="h-4 w-4" />
                 <div className="absolute -top-1 -right-1 w-3 h-3 bg-red-500 rounded-full"></div>
-              </Button>
+              </Button> */}
 
               {/* User Menu */}
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="outline" className="gap-2 bg-transparent">
+                    {isConnected ? 
                     <div className="flex items-center gap-2">
                       <div className="w-2 h-2 bg-green-500 rounded-full"></div>
                       <span className="text-sm">Connected</span>
                     </div>
+                    : ""}
                     <Avatar className="h-6 w-6">
                       <AvatarFallback className="text-xs">0x</AvatarFallback>
                     </Avatar>
-                    <span className="font-mono text-sm">0x742d...4e2f</span>
+                    <span className="font-mono text-sm">{address?.slice(0,10)}...</span>
                     <ChevronDown className="h-4 w-4" />
                   </Button>
                 </DropdownMenuTrigger>

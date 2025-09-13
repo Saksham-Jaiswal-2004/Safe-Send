@@ -24,6 +24,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge"
 import { Avatar, AvatarFallback } from "@/components/ui/avatar"
 import { Progress } from "@/components/ui/progress"
+import { useWallet } from '../../context/walletContext'
+import { useBalance } from 'wagmi'
 
 const mockTokens = [
   { symbol: "ETH", name: "Ethereum", balance: "2.45", usdValue: "6,125.50", change: "+5.2%" },
@@ -82,6 +84,13 @@ export default function DashboardPage() {
   const totalUsdValue = mockTokens.reduce((sum, token) => sum + Number.parseFloat(token.usdValue.replace(",", "")), 0)
   const safetyScore = 85
   const riskEnvironment = "Normal"
+
+  const { address, isConnected, chainId, userData } = useWallet();
+
+  const { data: balance } = useBalance({
+    address: address as `0x${string}`,
+    // chainId: 1,
+  })
 
   const getRiskBadge = (risk: string) => {
     switch (risk) {
@@ -186,7 +195,9 @@ export default function DashboardPage() {
               <div className="space-y-4">
                 <div className="flex items-baseline gap-2">
                   <span className="text-4xl font-bold">
-                    {balanceVisible ? `$${totalUsdValue.toLocaleString()}` : "••••••"}
+                    {/* {balanceVisible ? `$${totalUsdValue.toLocaleString()}` : "••••••"} */}
+                    {balance?.formatted} {balance?.symbol} 
+                    {/* {balance?.value} */}
                   </span>
                   <Badge variant="secondary" className="bg-green-500/10 text-green-800 border-green-500/20">
                     <TrendingUp className="h-3 w-3 mr-1" />

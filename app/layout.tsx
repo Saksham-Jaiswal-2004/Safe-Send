@@ -5,6 +5,8 @@ import { GeistMono } from "geist/font/mono"
 import { Analytics } from "@vercel/analytics/next"
 import { ThemeProvider } from "@/components/theme-provider"
 import { Suspense } from "react"
+import Providers from './providers'
+import { WalletProvider } from '../context/walletContext'
 import "./globals.css"
 
 const inter = Inter({
@@ -28,7 +30,11 @@ export default function RootLayout({
       <body className={`font-sans ${inter.variable} ${GeistMono.variable} antialiased`}>
         <Suspense fallback={null}>
           <ThemeProvider attribute="class" defaultTheme="dark" enableSystem={false} disableTransitionOnChange>
-            {children}
+              <Providers>
+                <WalletProvider>
+                  {children}
+                </WalletProvider>
+              </Providers>
           </ThemeProvider>
         </Suspense>
         <Analytics />

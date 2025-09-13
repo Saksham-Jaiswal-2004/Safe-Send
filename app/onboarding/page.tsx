@@ -7,6 +7,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Progress } from "@/components/ui/progress"
+import { ConnectButton } from '@rainbow-me/rainbowkit'
+import { useAccount } from 'wagmi'
 
 const ONBOARDING_STEPS = [
   { id: "welcome", title: "Welcome", description: "Get started with SafeSend AI" },
@@ -20,6 +22,8 @@ export default function OnboardingPage() {
   const [walletConnected, setWalletConnected] = useState(false)
   const [addressBookEnabled, setAddressBookEnabled] = useState(false)
   const [telemetryOptIn, setTelemetryOptIn] = useState(false)
+
+  const { address, isConnected, isConnecting, isDisconnected, chainId } = useAccount()
 
   const progress = ((currentStep + 1) / ONBOARDING_STEPS.length) * 100
 
@@ -117,13 +121,14 @@ export default function OnboardingPage() {
               <CardDescription className="text-lg">Choose your preferred wallet to get started</CardDescription>
             </CardHeader>
             <CardContent className="space-y-4">
-              {walletConnected ? (
+              {isConnected ? (
                 <div className="text-center py-8">
                   <CheckCircle className="h-16 w-16 text-primary mx-auto mb-4" />
                   <h3 className="text-xl font-semibold mb-2">Wallet Connected!</h3>
-                  <p className="text-muted-foreground mb-4">Successfully connected to MetaMask</p>
+                  <p className="text-muted-foreground mb-4">Successfully connected to Wallet</p>
                   <Badge variant="secondary" className="mb-6">
-                    0x1234...5678
+                    {/* 0x1234...5678 */}
+                    {address}
                   </Badge>
                   <div className="bg-muted/50 p-4 rounded-lg">
                     <p className="text-sm text-muted-foreground">
@@ -192,7 +197,8 @@ export default function OnboardingPage() {
                   <ArrowLeft className="mr-2 h-4 w-4" />
                   Back
                 </Button>
-                <Button onClick={nextStep} disabled={!walletConnected}>
+                <ConnectButton />
+                <Button onClick={nextStep} disabled={!isConnected}>
                   Continue
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>

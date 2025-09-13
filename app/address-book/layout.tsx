@@ -52,7 +52,8 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
     <div className="min-h-screen bg-background flex">
       {/* Sidebar */}
       <aside className={`fixed top-0 left-0 z-50 w-64 h-screen bg-card border-r border-border/40 transform transition-transform duration-200 ease-in-out lg:translate-x-0 lg:static lg:inset-0 ${sidebarOpen ? "translate-x-0" : "-translate-x-full"}`}>
-        <div className="flex items-center justify-between p-4 border-b border-border/40">
+        <a href="/">
+        <div className="flex items-center justify-between w-full p-4 border-b border-border/40">
           <div className="flex items-center gap-2">
             <Shield className="h-6 w-6 text-primary" />
             <span className="font-bold">SafeSend AI</span>
@@ -61,6 +62,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
             <X className="h-4 w-4" />
           </Button>
         </div>
+        </a>
 
         <nav className="p-4 space-y-2">
           {navigationItems.map((item) => (
