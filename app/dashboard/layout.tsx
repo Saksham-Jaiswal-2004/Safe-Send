@@ -2,7 +2,7 @@
 
 import type React from "react"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import {
   Shield,
   Send,
@@ -31,25 +31,44 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { useWallet } from '../../context/walletContext'
+import { fetchNews } from "@/utils/api";
 
 interface DashboardLayoutProps {
   children: React.ReactNode
 }
 
 export default function DashboardLayout({ children }: DashboardLayoutProps) {
-  const [selectedNetwork, setSelectedNetwork] = useState("Ethereum")
+  const [selectedNetwork, setSelectedNetwork] = useState("Avalanche")
   const [sidebarOpen, setSidebarOpen] = useState(false)
 
   const { address, isConnected, chainId, userData } = useWallet();
 
+  const [news, setNews] = useState<any[]>([]);
+  const [error, setError] = useState("");
+
   const navigationItems = [
-    { icon: Home, label: "Dashboard", href: "/dashboard", active: false },
+    { icon: Home, label: "Dashboard", href: "/dashboard", active: true },
     { icon: Send, label: "Send", href: "/send", active: false },
     // { icon: Download, label: "Receive", href: "/receive", active: false },
     { icon: Users, label: "Address Book", href: "/address-book", active: false },
+    { icon: Users, label: "Contract Analysis", href: "/contractAnalysis", active: false },
     { icon: History, label: "History", href: "/history", active: false },
     { icon: Settings, label: "Settings", href: "/settings", active: false },
   ]
+
+  // useEffect(() => {
+  //   async function loadNews() {
+  //     try {
+  //       const data = await fetchNews();
+  //       setNews(data); 
+  //       console.log("News: ",data)
+  //     } catch (err: any) {
+  //       setError(err.message);
+  //       console.log("Error: ", err.message)
+  //     }
+  //   }
+  //   loadNews();
+  // }, []);
 
   return (
     <div className="min-h-screen bg-background flex">
@@ -136,7 +155,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
                 <DropdownMenuContent>
                   <DropdownMenuItem onClick={() => setSelectedNetwork("Ethereum")}>
                     <div className="w-2 h-2 bg-blue-500 rounded-full mr-2"></div>
-                    Ethereum
+                    Avalanche
                   </DropdownMenuItem>
                   <DropdownMenuItem onClick={() => setSelectedNetwork("Polygon")}>
                     <div className="w-2 h-2 bg-purple-500 rounded-full mr-2"></div>

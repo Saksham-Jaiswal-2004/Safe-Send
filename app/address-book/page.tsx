@@ -45,6 +45,19 @@ import {
 } from "@/components/ui/dialog"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 
+interface Contact {
+  id: string;
+  name: string;
+  address: string;
+  alias?: string;
+  notes?: string;
+  tags?: string[];
+  trustLevel?: "trusted" | "unknown" | "blocked";
+  lastUsed?: string;
+  transactionCount?: number;
+  totalVolume?: string;
+}
+
 // Mock contacts data
 const mockContacts = [
   {
@@ -398,13 +411,13 @@ export default function AddressBookPage() {
                               {contact.notes && (
                                 <p className="text-sm text-muted-foreground line-clamp-2">{contact.notes}</p>
                               )}
-                              <div className="flex items-center gap-4 text-xs text-muted-foreground">
+                              {/* <div className="flex items-center gap-4 text-xs text-muted-foreground">
                                 <span>Last used: {contact.lastUsed}</span>
                                 <span>{contact.transactionCount} transactions</span>
                                 <span>{contact.totalVolume} volume</span>
-                              </div>
+                              </div> */}
                               {contact.tags.length > 0 && (
-                                <div className="flex gap-1 flex-wrap">
+                                <div className="flex gap-1 flex-wrap mt-2">
                                   {contact.tags.map((tag, index) => (
                                     <Badge key={index} variant="outline" className="text-xs">
                                       {tag}

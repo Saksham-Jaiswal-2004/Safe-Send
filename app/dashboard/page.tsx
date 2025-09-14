@@ -196,7 +196,7 @@ export default function DashboardPage() {
                 <div className="flex items-baseline gap-2">
                   <span className="text-4xl font-bold">
                     {/* {balanceVisible ? `$${totalUsdValue.toLocaleString()}` : "••••••"} */}
-                    {balance?.formatted} {balance?.symbol} 
+                    {balance?.formatted} AVAX 
                     {/* {balance?.value} */}
                   </span>
                   <Badge variant="secondary" className="bg-green-500/10 text-green-800 border-green-500/20">
@@ -298,20 +298,26 @@ export default function DashboardPage() {
             </CardHeader>
             <CardContent className="space-y-3">
               <Button className="w-full justify-start gap-3" size="lg">
+                <a href="/send" className="flex gap-2 w-full items-center">
                 <Send className="h-5 w-5" />
                 Send
+                </a>
               </Button>
-              <Button variant="outline" className="w-full justify-start gap-3 bg-transparent" size="lg">
+              {/* <Button variant="outline" className="w-full justify-start gap-3 bg-transparent" size="lg">
                 <Download className="h-5 w-5" />
                 Receive
-              </Button>
+              </Button> */}
               <Button variant="outline" className="w-full justify-start gap-3 bg-transparent" size="lg">
+                <a href="/address-book" className="flex gap-2 w-full items-center">
                 <Users className="h-5 w-5" />
                 Add Contact
+                </a>
               </Button>
               <Button variant="outline" className="w-full justify-start gap-3 bg-transparent" size="lg">
+                <a href="/contractAnalysis" className="flex gap-2 w-full items-center">
                 <BarChart3 className="h-5 w-5" />
                 View Analysis
+                </a>
               </Button>
             </CardContent>
           </Card>

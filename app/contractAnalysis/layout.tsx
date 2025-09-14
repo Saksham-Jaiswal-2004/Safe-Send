@@ -48,10 +48,10 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
 
   const navigationItems = [
     { icon: Home, label: "Dashboard", href: "/dashboard", active: false },
-    { icon: Send, label: "Send", href: "/send", active: true },
+    { icon: Send, label: "Send", href: "/send", active: false },
     // { icon: Download, label: "Receive", href: "/receive", active: false },
     { icon: Users, label: "Address Book", href: "/address-book", active: false },
-    { icon: Users, label: "Contract Analysis", href: "/contractAnalysis", active: false },
+    { icon: Users, label: "Contract Analysis", href: "/contractAnalysis", active: true },
     { icon: History, label: "History", href: "/history", active: false },
     { icon: Settings, label: "Settings", href: "/settings", active: false },
   ]

@@ -26,6 +26,7 @@ import { Progress } from "@/components/ui/progress"
 import { Slider } from "@/components/ui/slider"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Collapsible, CollapsibleContent, CollapsibleTrigger } from "@/components/ui/collapsible"
+import { sendTransaction } from "@/utils/api";
 
 const SEND_STEPS = [
   { id: "recipient", title: "Recipient", description: "Enter destination address" },
@@ -35,6 +36,7 @@ const SEND_STEPS = [
 ]
 
 const mockTokens = [
+  { symbol: "AVAX", name: "Avalanche", balance: "45.65", usdValue: "29.41" },
   { symbol: "ETH", name: "Ethereum", balance: "2.45", usdValue: "6,125.50" },
   { symbol: "USDC", name: "USD Coin", balance: "1,250.00", usdValue: "1,250.00" },
   { symbol: "MATIC", name: "Polygon", balance: "850.25", usdValue: "425.13" },
@@ -58,7 +60,44 @@ export default function SendPage() {
   const [etaPrediction, setEtaPrediction] = useState<any>(null)
   const [feedbackGiven, setFeedbackGiven] = useState(false)
 
+  const [address, setAddress] = useState("");
+  const [amount2, setAmount2] = useState(0);
+  const [status, setStatus] = useState("");
+
+  const [form, setForm] = useState({
+    gas_price: 0,
+    gas_fee_cap: 0,
+    gas_tip_cap: 0,
+    gas: 0,
+    value: 0,
+    tx_type: 0,
+    nonce: 0,
+    data_size: 0,
+  });
+
   const progress = ((currentStep + 1) / SEND_STEPS.length) * 100
+
+  async function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    console.log("Clicked")
+    try {
+      setStatus("Sending...");
+      const res = await sendTransaction(
+        form.gas_price,
+        form.gas_fee_cap,
+        form.gas_tip_cap,
+        form.gas,
+        form.value,
+        form.tx_type,
+        form.nonce,
+        form.data_size
+      );
+      setStatus(`✅ Success: ${JSON.stringify(res)}`);
+      console.log("Response: ",res)
+    } catch (err: any) {
+      setStatus(`❌ Failed: ${err.message}`);
+    }
+  }
 
   const nextStep = () => {
     if (currentStep < SEND_STEPS.length - 1) {
@@ -576,6 +615,7 @@ export default function SendPage() {
                     {currentStep === 3 ? "Send Transaction" : "Continue"}
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Button>
+                  <Button onClick={handleSubmit}>Send Final</Button>
                 </div>
               </CardContent>
             </Card>

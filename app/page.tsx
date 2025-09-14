@@ -24,7 +24,9 @@ export default function LandingPage() {
               Security
             </a>
             <Button variant="outline" size="sm">
+              <a href="/demo">
               View Demo
+              </a>
             </Button>
           </nav>
         </div>
@@ -50,7 +52,9 @@ export default function LandingPage() {
               </a>
             </Button>
             <Button variant="outline" size="lg" className="text-lg px-8 bg-transparent">
+              <a href="/demo">
               View Demo
+              </a>
             </Button>
           </div>
         </div>
