@@ -78,7 +78,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
         <div className="flex items-center justify-between p-4 border-b border-border/40">
           <div className="flex items-center gap-2">
             <Shield className="h-6 w-6 text-primary" />
-            <span className="font-bold">SafeSend AI</span>
+            <span className="font-bold">TrustChain</span>
           </div>
           <Button variant="ghost" size="icon" className="lg:hidden" onClick={() => setSidebarOpen(false)}>
             <X className="h-4 w-4" />
@@ -107,7 +107,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
             <CardContent className="p-3">
               <div className="flex items-center gap-2 mb-2">
                 <Award className="h-4 w-4 text-primary" />
-                <span className="text-sm font-medium">Trust Chain</span>
+                <span className="text-sm font-medium">TrustChain</span>
               </div>
               <div className="space-y-1">
                 <Badge variant="outline" className="text-xs">
@@ -137,7 +137,7 @@ export default function DashboardLayout({ children }: DashboardLayoutProps) {
                 <Menu className="h-4 w-4" />
               </Button>
               <div>
-                <h1 className="text-xl font-semibold">SafeSend AI</h1>
+                <h1 className="text-xl font-semibold">TrustChain</h1>
                 <p className="text-sm text-muted-foreground">Crypto transaction safety layer</p>
               </div>
             </div>

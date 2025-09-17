@@ -15,7 +15,7 @@ const inter = Inter({
 })
 
 export const metadata: Metadata = {
-  title: "SafeSend AI - Crypto that cares before it confirms",
+  title: "TrustChain - Crypto that cares before it confirms",
   description: "A privacy-first safety layer that flags risky transfers and predicts how long they'll take.",
   generator: "v0.app",
 }

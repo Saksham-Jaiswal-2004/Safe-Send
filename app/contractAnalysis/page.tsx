@@ -315,10 +315,10 @@ contract MyContract {
                       <Copy className="h-4 w-4 mr-2" />
                       Copy Analysis
                     </Button>
-                    <Button variant="outline" size="sm">
+                    {/* <Button variant="outline" size="sm">
                       <ExternalLink className="h-4 w-4 mr-2" />
                       View on Etherscan
-                    </Button>
+                    </Button> */}
                   </div>
                 </CardContent>
               </Card>
